@@ -13,6 +13,59 @@ export default class Homework extends Component {
        
 
         this.state = {
+            mainGoals: [{mainGoal: {
+                title: "maingoal",
+                description: "this is my maingoal",
+                date: "",
+                complete: false,
+                completed: "",
+                goals: [
+                    {
+                        title: "goal",
+                        description: "this is a subgoal",
+                        date: "",
+                        complete: false,
+                        completed: "",
+    
+    
+                    },
+                    {
+                        title: "goals",
+                        description: "this is a subgoals",
+                        date: "",
+                        complete: false,
+                        completed: "",
+    
+    
+                    },
+                ],
+                
+
+
+            }
+            },
+            {mainGoal: {
+                title: "maingoal2",
+                description: "this is my maingoal2",
+                date: "",
+                complete: false,
+                completed: "",
+                goals: [
+                    {
+                        title: "goal",
+                        description: "this is a subgoal2",
+                        date: "",
+                        complete: false,
+                        completed: "",
+    
+    
+                    },
+                ],
+                
+
+
+            }
+            }],
 
         };
     }

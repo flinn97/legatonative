@@ -13,7 +13,13 @@ export default class Homework extends Component {
        
 
         this.state = {
-
+            homeworks: [{
+                title: "homework"
+            },
+            {
+                title: "homework2"
+            },
+        ]
         };
     }
     

@@ -925,7 +925,7 @@ export default class App extends Component {
     render() {
         return (
             
-                <Nav />
+                <Nav state={this.state} />
             
         )
     }
