@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native';
+import { Text, View, Image, SafeAreaView, StyleSheet, TextInput ,ImageBackground } from 'react-native';
+import { Button } from 'react-native-paper';
 // import Button from '../components/button.js';
 // import Slider from '../components/slider.js';
 // import './pages.css';
 import Metro from "./metronome.png"
 // import Splashscreen  from "../components/splashscreen.js";
-
+import image from "./metronome.png"
 
 export default class Metronome extends Component {
     constructor(props) {
@@ -116,8 +117,43 @@ export default class Metronome extends Component {
     render() {
         return (
             
-                <View><Text>Metro</Text></View>
+
+                   <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+      <Text style={styles.text}>Metronome</Text>
+      <SafeAreaView>
+          <TextInput
+          style={{width: 60, fontSize: 25, backgroundColor:"white"}}
+          onChangeText={this.handleChanges}
+          value={this.state.bpm.toString()}
+          keyboardType="numeric"/>
+                </SafeAreaView>
+                <Button style={{backgroundColor:"blue"}}title="Start"></Button>
+    </ImageBackground>
+                   
             
         )
     }
 } 
+const styles = StyleSheet.create({
+
+    text: {
+        color: "black",
+        marginTop: 15,
+        fontSize: 25,
+        lineHeight: 84,
+        fontWeight: "bold",
+        textAlign: "center",
+        
+      },
+      image: {
+        flex: 1,
+        alignItems: "center",
+        width: '100%',
+        
+        transform: [{ scale: 0.90 }]
+
+
+      },
+
+
+  });

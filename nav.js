@@ -6,11 +6,11 @@ import Homework from './homework.js';
 import Goals from './goals.js';
 import Metro from './metro.js';
 import Progress from './progress.js';
-import ProfileScreen from './progress.js'
+import ProfileScreen from './profile.js'
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1, alignItems: 'center' }}>
       <Homework/>
     </View>
   );
@@ -18,14 +18,14 @@ function HomeScreen() {
 
 function SettingsScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1,  alignItems: 'center' }}>
       <Goals/>
     </View>
   );
 }
 function ProgressScreen() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <View style={{ flex: 1,  alignItems: 'center' }}>
       <Progress/>
     </View>
   );

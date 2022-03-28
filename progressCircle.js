@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import "./progress_circle.css";
+// import "./progress_circle.css";
+import { Button, Text, View, Image, SafeAreaView, StyleSheet, TextInput, } from 'react-native';
+import Animated, {
+    useSharedValue,
+    withTiming,
+    useAnimatedStyle,
+    Easing,
+  } from 'react-native-reanimated';
+  import CircularProgress from 'react-native-circular-progress-indicator';
+
 //not much here but functionality will be added for the goals.
 export default class Progress extends Component {
     constructor(props) {
@@ -15,35 +24,35 @@ export default class Progress extends Component {
 
         };
     }
-    componentDidMount() {
-        console.log(this.props.goals)
-        var totalgoals= this.props.goals.length
-        for (let i=0; i<this.props.goals.length; i++){
-            console.log(this.props.goals[i].mainGoal);
-            let goalz= this.props.goals[i]
-            for(let i=0; i<goalz.mainGoal.goals.length; i++){
+    // componentDidMount() {
+    //     console.log(this.props.goals)
+    //     var totalgoals= this.props.goals.length
+    //     for (let i=0; i<this.props.goals.length; i++){
+    //         console.log(this.props.goals[i].mainGoal);
+    //         let goalz= this.props.goals[i]
+    //         for(let i=0; i<goalz.mainGoal.goals.length; i++){
                 
-                totalgoals++
-            }
-        }
-        if(this.props.main){
-            this.setState({
-                totalGoals: totalgoals
-            })
-        }
-        else{
-            this.setState({
-                totalGoals: totalgoals
-            })
-        }
+    //             totalgoals++
+    //         }
+    //     }
+    //     if(this.props.main){
+    //         this.setState({
+    //             totalGoals: totalgoals
+    //         })
+    //     }
+    //     else{
+    //         this.setState({
+    //             totalGoals: totalgoals
+    //         })
+    //     }
    
-        this.progressCalc();
+    //     this.progressCalc();
 
        
         
             
         
-    }
+    // }
     async progressCalc() {
 
         let completedGoals = 0;
@@ -138,8 +147,22 @@ export default class Progress extends Component {
     render() {
         return (
             
-            <div>
-                {this.props.profile ? (
+            <View >
+                    <CircularProgress
+  value={100}
+  valueSuffix={'%'}
+  radius={115}
+  activeStrokeWidth={24}
+  inActiveStrokeWidth={24}
+  duration={2000}
+  textColor={'#696eb5'}
+  activeStrokeColor={'#696eb5'}
+  inActiveStrokeColor={'#C8CAE4'}
+  maxValue={100}
+  titleColor={'white'}
+  titleStyle={{fontWeight: 'bold'}}
+/>
+                {/* {this.props.profile ? (
                     <div>
                         {this.props.userProfile?(
                         
@@ -283,31 +306,109 @@ export default class Progress extends Component {
                                 </div>
                             </div>
                         </div>
-                    ):(
+                    ):( */}
 
-                        <div className="circles3 ">
-                            <div className="inner "></div><div className=" innera"></div>
-                    <div className="number">{this.state.percent}%</div>
-                            <div className="circle3">
-                                <div className="bar left">
-                                    <div className="progress" style={{ transform: this.state.stylel }}></div>
-                                </div>
-                                <div className="bar right">
-                                    <div className="progress" style={{ transform: this.state.styler }}></div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
+                        {/* <View style={styles.circles3}>
+                            <View  style={styles.inner} ></View>
+                            {/* <View  style={styles.inner} className=" innera"></View> */}
+                    {/* <View  style={styles.number} ><Text>{this.state.percent}%</Text></View>
+                             <View className="circle3">
+                                <View className="bar left">
+                                    <View className="progress" style={{
+                                        //  transform: this.state.stylel 
+                                         }}></View>
+                                </View>
+                                <View className="bar right">
+                                    <View className="progress" style={{
+                                        //  transform: this.state.styler
+                                          }}></View>
+                                </View>
+                            </View> 
+                        </View> */}
+                     {/* )} */}
                         
 
-                    </div>)}
+                    {/* </div>
+                     )} */}
             
                 
-            </div>
+            </View>
         );
 
     }
 }
+
+const styles = StyleSheet.create({
+    circles3: {
+        height: 100,
+        width: 100,
+        backgroundColor: "#C8CAE4",
+        borderRadius: 100,
+        display: "flex",
+        justifyContent:"center",
+        alignItems:"center"
+        // position:"absolute",
+    },
+    inner: {
+        position: "absolute",
+        zIndex: 5,
+
+        height: 80,
+        width: 80,
+        display: "flex",
+        justifyContent:"center",
+        alignItems:"center",
+        backgroundColor: "white",
+        borderRadius: 100,
+    },
+    
+
+    number: {
+        position: "absolute",
+        
+        // transform: "translate(-50%, -50%)",
+        zIndex: 10,
+        fontSize: 18,
+        // fontWeight: 500,
+        color: "#696eb5",
+        backgroundColor: "white",
+    },
+
+    bar: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    backgroundColor:"#C8CAE4",
+    borderRadius: 100,
+    // clip: rect(0px, 100px, 100px, 50px);
+},
+
+bar: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    borderRadius: 100,
+    // clip: rect(0px, 50px, 100px, 0px);
+    backgroundColor: "#696eb5"
+},
+
+left:{
+    zIndex: 1,
+    // animation: left 1s linear both;
+},
+right: {
+    // transform: rotate(180deg);
+    zIndex: 2
+},
+
+  progress: {
+        // animation: right 1s linear both;
+        // animation-delay: 1s;
+    }
+
+
+
+  });
 /*
  
  */
