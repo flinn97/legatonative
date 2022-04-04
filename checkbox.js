@@ -47,7 +47,7 @@ export default class Check extends Component {
 
 
                                             <View  style={{...styles.csyncbox, alignItems:"flex-start"}}>
-                                            {this.props.day==="s"?(<Text style={{ position: "absolute", marginLeft: -3, marginTop: -3, fontSize: "13" }}>S</Text>):(<Text style={{ position: "absolute", marginLeft: -19, marginTop: 3, fontSize: "13" }}>{this.props.day}</Text>)}
+                                            {this.props.day==="s"?(<Text style={{ position: "absolute", marginLeft: -3, marginTop: -3, fontSize: 13 }}>S</Text>):(<Text style={{ position: "absolute", marginLeft: -19, marginTop: 3, fontSize: 13 }}>{this.props.day}</Text>)}
                                             {/* <View style={{display:"flex", alignItems:"center",  }} >
                                                 <Text style={{ position: "absolute",fontSize:"30pt", marginTop:10 }}>{this.props.day}</Text>
                                                 </View> */}
@@ -73,15 +73,15 @@ export default class Check extends Component {
 
                                     ) : (
                                             <View style={styles.csyncbox}>
-                                                {this.props.day==="s"?(<Text style={{ position: "absolute", marginLeft: -3, marginTop: -3, fontSize: "13", opacity: "0" }}>S</Text>)
+                                                {this.props.day==="s"?(<Text style={{ position: "absolute", marginLeft: -3, marginTop: -3, fontSize: 13, opacity: 0 }}>S</Text>)
                                                 :(
-                                                <Text style={{ position: "absolute", marginLeft: -3, marginTop: -3, fontSize: "13", opacity: "0" }}>{this.props.day}</Text>)}
+                                                <Text style={{ position: "absolute", marginLeft: -3, marginTop: -3, fontSize: 13, opacity: 0 }}>{this.props.day}</Text>)}
 
 
                                                                                   
-                                                <View style={{display:"flex", alignItems:"center",fontSize:"30pt" }} >
+                                                <View style={{display:"flex", alignItems:"center",fontSize:30 }} >
                                                 <TouchableWithoutFeedback onPress={this.handlechange}>
-                                                <Text style={{ position: "absolute",fontSize:"30pt", marginTop:10 }}>{this.props.day}</Text>
+                                                <Text style={{ position: "absolute",fontSize:30, marginTop:10 }}>{this.props.day}</Text>
                                                 </TouchableWithoutFeedback>
                                                     {/* {this.props.day === "M" ?
                                                         (<Text style={{ marginLeft: "-1px", marginTop: this.state.hstyle }}>{this.props.day}</Text>)

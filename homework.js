@@ -226,7 +226,7 @@ export default class Homework extends Component {
                 <View style={{ flex: 1, alignItems: 'center' }}>
                 <Text style={{ fontSize:20 }}>Homework Assignments</Text>
                 <View style={{ marginTop:40 }}>
-                 {this.state.homeworks.map((homework, index)=><View><Text style={{fontSize:18, marginTop:5}} key={index}>{homework.title}</Text></View>)}
+                 {this.state.homeworks.map((homework, index)=><View key={index}><Text style={{fontSize:18, marginTop:5}} key={index}>{homework.title}</Text></View>)}
                  </View>
                  </View>
                  <View  style={{marginBottom:50}}>
