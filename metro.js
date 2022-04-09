@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Text, View, Image, SafeAreaView, StyleSheet, TextInput ,ImageBackground } from 'react-native';
+import { Text, View, Image, SafeAreaView, StyleSheet, TextInput ,ImageBackground, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Audio } from 'expo-av';
 // import Button from '../components/button.js';
 // import Slider from '../components/slider.js';
 // import './pages.css';
 import Metro from "./metronome.png"
-// import Splashscreen  from "../components/splashscreen.js";
 import image from "./metronome.png"
+import click from "./click1.wav"
+import Slider from '@react-native-community/slider';
 
 export default class Metronome extends Component {
     constructor(props) {
@@ -21,40 +23,33 @@ export default class Metronome extends Component {
             screensize: "",
             maxHeight:"700px",
             splashscreen:true,
+            click1: undefined,
 
         }
-        // this.click1 = new Audio("https://daveceddia.com/freebies/react-metronome/click1.wav");
-        // this.click2 = new Audio("https://daveceddia.com/freebies/react-metronome/click1.wav");
+       
+        // this.click2 = new Adio("./click1.wav");
         this.handleBPM = this.handleBPM.bind(this);
         this.updateInterval = this.updateInterval.bind(this);
         this.startStop = this.startStop.bind(this);
         this.playClick = this.playClick.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-        this.Splashscreen = this.Splashscreen.bind(this);
 
+        this.sound = new Audio.Sound();
         
     }
-    Splashscreen(){
-        this.setState({splashscreen:false})
-    }
-    updateWindowDimensions() {
-        this.setState({screensize: window.innerWidth})
-        if(parseInt(window.innerWidth) <= 800)
-        this.setState({ 
-            tooSmall: true,
-            marginTop: "20px",
-        margint: "00px", 
-        maxHeight:"400px",
-        margint: "50px",
-    });
-     }
-    // componentWillUnmount() {
-    //     window.removeEventListener("resize", this.updateWindowDimensions)
-    // } 
-    // componentDidMount() {
-    //     window.addEventListener("resize", this.updateWindowDimensions());
-    // }
+     async componentDidMount(){
+        const sound = await this.sound.loadAsync(require('./click1.wav'));
+        this.setState({click1:sound})
+        }
+     
+    //  handlePress() {
+    //     this.hello.play((success) => {
+    //       if (!success) {
+    //         console.log('Sound did not play')
+    //       }
+    //     })
+    //   }
+    
 
 
     updateInterval() {
@@ -91,12 +86,32 @@ export default class Metronome extends Component {
 
     }
 
-    playClick() {
-        if (this.state.count === 0) this.click2.play();
-        else this.click1.play();
-        this.setState({
-            count: this.state.count + 1
-        });
+    async playClick() {
+        
+try {
+    console.log("igot here");
+  await this.state.click1.playAsync();
+  // Your sound is playing!
+
+  // Don't forget to unload the sound from memory
+  // when you are done using the Sound object
+  await this.sound.unloadAsync();
+} catch (error) {
+  // An error occurred!
+}
+
+        // if (this.state.count === 0) this.click2.play();
+        // else 
+        // const {click1} =  await Audio.Sound.createAsync(
+        //     require('./click1.wav')
+        //  );
+        //  await this.setState({
+        //      click1: click1
+        //  })
+        // await this.state.click1.playAsync();
+        // this.setState({
+        //     count: this.state.count + 1
+        // });
     }
 
     startStop() {
@@ -122,12 +137,20 @@ export default class Metronome extends Component {
       <Text style={styles.text}>Metronome</Text>
       <SafeAreaView>
           <TextInput
-          style={{width: 60, fontSize: 25, backgroundColor:"white"}}
+          style={{width: 75, fontSize: 40, backgroundColor:"white", marginTop:100, justifyContent:"center", alignItems:"center"}}
           onChangeText={this.handleChanges}
           value={this.state.bpm.toString()}
           keyboardType="numeric"/>
                 </SafeAreaView>
-                <Button style={{backgroundColor:"blue"}}title="Start"></Button>
+                <Slider
+                    style={{width: 300, height: 60, marginTop: 100}}
+                    minimumValue={0}
+                    maximumValue={1}
+                    minimumTrackTintColor="#696eb5"
+                    maximumTrackTintColor="#C8CAE4"
+                    thumbTintColor= "white"
+                />
+                <TouchableOpacity onPress={this.startStop} style={{marginTop:70, backgroundColor:"#696eb5", color:"white", width:70, justifyContent:"center", alignItems:"center",height:30, borderRadius: 4}}><Text style={{color:"white"}}>Start</Text></TouchableOpacity>
     </ImageBackground>
                    
             
@@ -138,7 +161,7 @@ const styles = StyleSheet.create({
 
     text: {
         color: "black",
-        marginTop: 15,
+        marginTop: 25,
         fontSize: 25,
         lineHeight: 84,
         fontWeight: "bold",
@@ -150,7 +173,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         width: '100%',
         
-        transform: [{ scale: 0.90 }]
+        transform: [{ scale: 1 }]
 
 
       },

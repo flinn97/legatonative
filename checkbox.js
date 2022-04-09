@@ -130,9 +130,9 @@ export default class Check extends Component {
 
                                 <View className="tick"></View> */}
                             </View>
-                                {/* <View style={{ marginLeft: "10px" }}>
-                                {this.props.props.synctimes ? (<View>{this.props.time ? (<View style={{fontSize:"14px"}}><Text>{this.props.time} m</Text></View>) : (<View style={{fontSize:"14px"}}><Text>0 m</Text></View>)}</View>) : (<View></View>)}
-                            </View> */}
+                                <View style={{ marginLeft: 10, }}>
+                                {this.props.props.synctimes ? (<View>{this.props.time ? (<View style={{fontSize: 14}}><Text>{this.props.time} m</Text></View>) : (<View style={{fontSize:14}}><Text>0 m</Text></View>)}</View>) : (<View></View>)}
+                            </View>
                             
                             
                             

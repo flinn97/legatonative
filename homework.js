@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import AuthService from "./services/auth.service";
 
-import { Button, Text, View, Image, SafeAreaView, StyleSheet, TextInput } from 'react-native';
+import { Button, Text, View, Image, SafeAreaView, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 import Checkboxnum2 from "./practice"
 
@@ -222,20 +222,24 @@ export default class Homework extends Component {
 
             //                     </div>
             //         </div>
-            <View style={{ flex: 1, alignItems: 'center', marginTop:60, justifyContent:"space-between" }}>
+            <View style={{ flex: 1, alignItems: 'center', marginTop:70, justifyContent:"space-between" }}>
                 <View style={{ flex: 1, alignItems: 'center' }}>
-                <Text style={{ fontSize:20 }}>Homework Assignments</Text>
-                <View style={{ marginTop:40 }}>
+                <Text style={{ fontSize:25 }}>Homework Assignments</Text>
+                <View style={{ marginTop:50 }}>
                  {this.state.homeworks.map((homework, index)=><View key={index}><Text style={{fontSize:18, marginTop:5}} key={index}>{homework.title}</Text></View>)}
                  </View>
                  </View>
-                 <View  style={{marginBottom:50}}>
-            <View  style={{display:"flex", flexDirection:"row", marginBottom:70}}>
+                 <View  style={{marginBottom:70}}>
+            <View  style={{display:"flex", flexDirection:"row", marginBottom:80}}>
                 <Checkboxnum2 checkboxes={7} prac={this.state.checked} practice={this.practice} synced={true} sync={this.state.syncedCheckboxes} 
-                times={this.state.hwtime} synctimes={this.state.timeday} />
+                times={this.state.hwtime} synctimes={true} 
+                // synctimes={this.state.timeday} 
+                />
                 
             </View>
-            <Button title="log time"></Button>
+            <View style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
+            <TouchableOpacity style={{ width:80, height:30, borderRadius:4,  justifyContent:"center", alignItems:"center", backgroundColor:"#696eb5"}}><Text style={{color:"white"}}>Log Time</Text></TouchableOpacity>
+            </View>
             </View>
             </View>
         );

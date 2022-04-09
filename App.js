@@ -1,61 +1,63 @@
 import React, { Component } from 'react'
 import Nav from "./nav.js"
 import { Text, View } from 'react-native';
-
+import authService from './services/auth.service.js';
 export default class App extends Component {
 
 
     state = {
-        diaPic: false,
-        edit: false,
-        picture: "//ssl.gstatic.com/accounts/ui/avatar_2x.png",
-        newPic: "",
-        currentUser: "",
-        realtimeusr: undefined,
-        realtimeusr0: undefined,
-        back: "",
-        about: "this is how you learn",
-        first: "",
-        last: "",
-        email: "",
-        phone: "",
-        edittheBackground: false,
-        background: "",
-        currentStudent: undefined,
-        day: "",
-        time: "",
-        checkboxes: "",
-        homework: "",
-        hwpractice: 0,
-        practice: 0,
-        daysPracticed: 0,
-        totalDays: 0,
-        homeworks: "",
-        currentHomework: undefined,
-        showGoal: false,
-        newcheck: false,
-        changetime: "",
-        minedit: "",
-        timeedit: "",
-        timesedit: false,
-        weeklyTimeEdit: "",
-        c: false,
-        t: false,
-        starpointz: false,
-        timecheck: false,
-        timedaycheck: false,
-        statsmargin: "60px",
-        timepracmargin: "40%",
-        timepracmarginr: "40%",
-        dayspracmargin: "40%",
-        splashscreen: false,
-        pracgoalmargin: "40%",
-        amarginLeft: "30px",
-        aheight: "140px",
-        tmarginTop: "25px",
-        widthforedit: "80%",
-        sp: "0",
-        main: undefined
+        student: undefined
+        // diaPic: false,
+        // edit: false,
+        // picture: "//ssl.gstatic.com/accounts/ui/avatar_2x.png",
+        // newPic: "",
+        // currentUser: "",
+        // realtimeusr: undefined,
+        // realtimeusr0: undefined,
+        // back: "",
+        // about: "this is how you learn",
+        // first: "",
+        // last: "",
+        // email: "",
+        // phone: "",
+        // edittheBackground: false,
+        // background: "",
+        // currentStudent: undefined,
+        // day: "",
+        // time: "",
+        // checkboxes: "",
+        // homework: "",
+        // hwpractice: 0,
+        // practice: 0,
+        // daysPracticed: 0,
+        // totalDays: 0,
+        // homeworks: "",
+        // currentHomework: undefined,
+        // showGoal: false,
+        // newcheck: false,
+        // changetime: "",
+        // minedit: "",
+        // timeedit: "",
+        // timesedit: false,
+        // weeklyTimeEdit: "",
+        // c: false,
+        // t: false,
+        // starpointz: false,
+        // timecheck: false,
+        // timedaycheck: false,
+        // statsmargin: "60px",
+        // timepracmargin: "40%",
+        // timepracmarginr: "40%",
+        // dayspracmargin: "40%",
+        // splashscreen: false,
+        // pracgoalmargin: "40%",
+        // amarginLeft: "30px",
+        // aheight: "140px",
+        // tmarginTop: "25px",
+        // widthforedit: "80%",
+        // sp: "0",
+        // main: undefined,
+
 
     }
     // async Splashscreen() {
@@ -518,6 +520,33 @@ export default class App extends Component {
             this.props.props.currentUserChange(this.state.realtimeusr.firstName, this.props.props.props.currentPage._id);
 
         });
+
+    }
+//     componentDidUpdate(props, state){
+//         if (this.state.update !== state.update){
+            
+//                 let student = authService.login("newguy@gmail.com", "Dragon97!")
+//                 console.log(student)
+//                 this.setState({
+//                     student:student
+//                 })
+        
+
+//     }
+// }
+
+
+    async componentDidMount() {
+        if(!this.state.student){
+            let student = await authService.login("newguy@gmail.com", "Dragon97!")
+            console.log("mount", student)
+            this.setState({
+                student:student
+            })
+    }
+        this.setState({
+            update: !this.state.update
+        })
 
     }
     // async componentDidMount() {

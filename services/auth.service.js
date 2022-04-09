@@ -1,3 +1,35 @@
+const API_URL = "https://legato.flinnapps.com/api/auth/";
+
+class AuthService{
+        async login(email, password) {
+            console.log(email, password, API_URL)
+        //login with email and password. set jwt sign in localStorage.
+        try {
+            var requestoptions={
+                method:'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    email:email,
+                    password:password
+                }),
+                redirect:'manual'
+            }
+            console.log(requestoptions);
+
+        var response = await fetch(API_URL + "signin", requestoptions);
+
+             const json = await response.json();
+             console.log(json);
+
+            return json
+          } catch (error) {
+            console.log(error);
+          }
+       
+
+    }
+}
+export default new AuthService()
 // import axios from "axios";
 // axios.defaults.xsrfCookieName = 'csrftoken';
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken';

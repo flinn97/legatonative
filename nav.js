@@ -7,26 +7,29 @@ import Goals from './goals.js';
 import Metro from './metro.js';
 import Progress from './progress.js';
 import ProfileScreen from './profile.js'
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Ionicons, MaterialCommunityIcons, Foundation  } from "@expo/vector-icons";
 
-function HomeScreen() {
+function HomeScreen(props) {
+  
   return (
     <View style={{ flex: 1, alignItems: 'center' }}>
-      <Homework/>
+      <Homework props={props}/>
     </View>
   );
 }
 
-function SettingsScreen() {
+function SettingsScreen(props) {
   return (
     <View style={{ flex: 1,  alignItems: 'center' }}>
-      <Goals/>
+      <Goals props={props}/>
     </View>
   );
 }
-function ProgressScreen() {
+function ProgressScreen(props) {
   return (
     <View style={{ flex: 1,  alignItems: 'center' }}>
-      <Progress/>
+      <Progress props={props}/>
     </View>
   );
 }
@@ -41,26 +44,115 @@ function ToolsScreen() {
 
 const Tab = createBottomTabNavigator();
 
-function MyTabs() {
+function MyTabs(props) {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Homework" component={HomeScreen} />
-      <Tab.Screen name="Goals" component={SettingsScreen} />
-      <Tab.Screen name="Progress" component={ProgressScreen} />
-      <Tab.Screen name="Metronome" component={ToolsScreen} />
-      <Tab.Screen style={{opacity:0, position:'absolute'}} name="Profile" component={ProfileScreen} />
+    <Tab.Navigator 
+    tabBarOptions={{
+      activeTintColor: '#fff',
+      inactiveTintColor: 'lightgray',
+      activeBackgroundColor: '#7A9B76',
+      inactiveBackgroundColor: '#7A9B76',
+      
+      
+          // style: {
+          //       backgroundColor: '#7A9B76',
+          //       paddingBottom: 3
+          // }
+   }
+  }
+   >
+
+      <Tab.Screen name="Homework" 
+      children={()=><HomeScreen props={props}/>}
+      // component={HomeScreen} 
+        options={{
+          headerStyle: {
+            backgroundColor: '#7A9B76',
+          },
+          headerTintColor: '#fff',
+          tabBarIcon: (tabInfo) => {
+            return (
+              <Ionicons
+                name="md-home"
+                size={24}
+                color="white"
+              />
+            );
+          },
+
+        }} 
+        />
+      <Tab.Screen name="Goals" 
+      children={()=><SettingsScreen props={props}/>}
+      // component={SettingsScreen} 
+      options={{
+        headerStyle: {
+          backgroundColor: '#7A9B76',
+        },
+        headerTintColor: '#fff',
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Foundation name="graph-trend" size={24} color="white" />
+
+          );
+        },
+      }} />
+      <Tab.Screen name="Progress" 
+            children={()=><ProgressScreen props={props}/>}
+
+            // component={ProgressScreen} 
+      options={{
+        headerStyle: {
+          backgroundColor: '#7A9B76',
+        },
+        headerTintColor: '#fff',
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Foundation name="graph-pie" size={24} color="white" />
+
+          );
+        },
+      }} />
+      <Tab.Screen name="Metronome" component={ToolsScreen} 
+      options={{
+        headerStyle: {
+          backgroundColor: '#7A9B76',
+        },
+        headerTintColor: '#fff',
+        tabBarIcon: (tabInfo) => {
+          return (
+            <MaterialCommunityIcons name="metronome" size={24} color="white" />
+          );
+        },
+      }} />
+      <Tab.Screen style={{opacity:0, position:'absolute'}} name="Profile" component={ProfileScreen} 
+      options={{
+        headerStyle: {
+          backgroundColor: '#7A9B76',
+        },
+        headerTintColor: '#fff',
+        tabBarIcon: (tabInfo) => {
+          return (
+            <Ionicons
+              name="md-person-circle-outline"
+              size={24}
+              color="white"
+            />
+          );
+        },
+      }} />
     </Tab.Navigator>
   );
 }
 
-export default function Nav() {
+export default function Nav(props) {
   return (
     <NavigationContainer>
-<View style={{zIndex:400,   width:'100%',  position:'absolute', marginTop:20 , display:'flex', justifyContent:'flex-end', flexDirection:"row"  }}>
+{/* <View style={{zIndex:400,   width:'100%',  position:'absolute', marginTop:20 , display:'flex', justifyContent:'flex-end', flexDirection:"row", backgroundColor:"" }}>
   <View  style={{zIndex:400, backgroundColor:"gray",  width:40, height:40,  borderRadius: 100 / 2, display:'flex', flexDirection:"row", justifyContent:"center", alignItems:"center"  }}>
-    <Text style={{color:"white"}}>P</Text></View></View>
+    <Text style={{color:"white"}}>P</Text></View></View> */}
     
-      <MyTabs />
+      <MyTabs props={props}/>
     </NavigationContainer>
   );
 }
