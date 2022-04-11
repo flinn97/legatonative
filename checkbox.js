@@ -13,13 +13,15 @@ export default class Check extends Component {
 
 
     handlechange(){
-        console.log(this.state)
+        // console.log(this.state)
         this.setState({
             p:!this.state.p
         })
+        this.props.practice(true, true, this.props.day)
+        
     }
     componentDidMount(){
-        console.log("props", this.props)
+        // console.log("props", this.props)
 
     }
 

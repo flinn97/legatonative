@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import { Text, View,Button } from 'react-native';
+import { NavigationContainer,  } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Homework from './homework.js';
 import Goals from './goals.js';
@@ -63,7 +63,7 @@ function MyTabs(props) {
    >
 
       <Tab.Screen name="Homework" 
-      children={()=><HomeScreen props={props}/>}
+      children={()=><HomeScreen props={props} practice={props.practice}/>}
       // component={HomeScreen} 
         options={{
           headerStyle: {
@@ -83,7 +83,7 @@ function MyTabs(props) {
         }} 
         />
       <Tab.Screen name="Goals" 
-      children={()=><SettingsScreen props={props}/>}
+      children={()=><SettingsScreen props={props} completeGoal={props.completeGoal}/>}
       // component={SettingsScreen} 
       options={{
         headerStyle: {
@@ -151,8 +151,9 @@ export default function Nav(props) {
 {/* <View style={{zIndex:400,   width:'100%',  position:'absolute', marginTop:20 , display:'flex', justifyContent:'flex-end', flexDirection:"row", backgroundColor:"" }}>
   <View  style={{zIndex:400, backgroundColor:"gray",  width:40, height:40,  borderRadius: 100 / 2, display:'flex', flexDirection:"row", justifyContent:"center", alignItems:"center"  }}>
     <Text style={{color:"white"}}>P</Text></View></View> */}
-    
-      <MyTabs props={props}/>
+         
+
+      <MyTabs props={props} practice={props.practice} completeGoal={props.completeGoal}/>
     </NavigationContainer>
   );
 }

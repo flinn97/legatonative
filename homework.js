@@ -231,14 +231,14 @@ export default class Homework extends Component {
                  </View>
                  <View  style={{marginBottom:70}}>
             <View  style={{display:"flex", flexDirection:"row", marginBottom:80}}>
-                <Checkboxnum2 checkboxes={7} prac={this.state.checked} practice={this.practice} synced={true} sync={this.state.syncedCheckboxes} 
+                <Checkboxnum2 checkboxes={7} prac={this.state.checked} practice={this.props.props.practice} synced={true} sync={this.state.syncedCheckboxes} 
                 times={this.state.hwtime} synctimes={true} 
                 // synctimes={this.state.timeday} 
                 />
                 
             </View>
             <View style={{display:"flex", justifyContent:"center", alignItems:"center"}}>
-            <TouchableOpacity style={{ width:80, height:30, borderRadius:4,  justifyContent:"center", alignItems:"center", backgroundColor:"#696eb5"}}><Text style={{color:"white"}}>Log Time</Text></TouchableOpacity>
+            <TouchableOpacity  style={{ width:80, height:30, borderRadius:4,  justifyContent:"center", alignItems:"center", backgroundColor:"#696eb5"}}><Text style={{color:"white"}}>Log Time</Text></TouchableOpacity>
             </View>
             </View>
             </View>

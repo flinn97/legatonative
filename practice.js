@@ -5,7 +5,7 @@ import { Text, View } from 'react-native';
 
 
 var Checkboxnum2 = function (props) {
-    console.log(props);
+    // console.log(props);
     var rows = [];
     var prac = props.prac;
     var moreprac = false;
@@ -76,7 +76,7 @@ var Checkboxnum2 = function (props) {
         }
       
         // rows.push(<Checkd props={props} flag={moreprac} day={day} time={time}/>);
-        rows.push(<Checkd props={props} flag={moreprac} day={day} time={false}/>);
+        rows.push(<Checkd props={props} flag={moreprac} day={day} time={false} practice={props.practice}/>);
         
         prac--;
     }

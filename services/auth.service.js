@@ -28,6 +28,62 @@ class AuthService{
        
 
     }
+    async newMainGoal(id, goal, ){
+        var requestoptions={
+            method:'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id:id,
+                goal:goal
+            }),
+            redirect:'manual'
+        }
+        await fetch(API_URL + "newMainGoal", requestoptions);
+    }
+    async goalStatusChange(id, checked, goal, main, complete, level, sp, starpointsGoal, pass, npass) {
+        //add homework for student. Homework appears on students page.
+        //console.log(name, email, password);
+        //binding parameters.
+        var requestoptions={
+            method:'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id:id,
+            checked:checked,
+            goal:goal,
+            main:main,
+            complete:complete,
+            level:level, sp:sp, starpointsGoal:starpointsGoal, pass:pass, npass:npass
+            }),
+            redirect:'manual'
+        }
+        await fetch(API_URL + "goalStatusChange", requestoptions);
+    }
+    async syncedchecking(student, day, checked, checkedd, daysPracticed, level, sp, starpointsGoal, pass, daystreak,npass ) {
+        // console.log(student, day, checked, checkedd, daysPracticed, level, sp, starpointsGoal, pass, daystreak,npass);
+        var requestoptions={
+            method:'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                student:student, day:day, checked:checked, checkedd: checkedd,
+                 daysPracticed: daysPracticed, level:level, sp:sp, starpointsGoal:starpointsGoal, pass:pass, daystreak: daystreak,npass:npass
+            }),
+            redirect:'manual'
+        }
+        // console.log(requestoptions);
+        await fetch(API_URL + "syncedchecking", requestoptions);
+
+            //  const json = await response.json();
+            //  console.log(json);
+
+            // return json
+         
+          }
+        // return axios
+        //     .post(API_URL + "syncedchecking", {
+        //         student, day, checked, checkedd, daysPracticed, level, sp, starpointsGoal, pass, daystreak, npass
+        //     });
+    // }
 }
 export default new AuthService()
 // import axios from "axios";

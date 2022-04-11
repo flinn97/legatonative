@@ -5,18 +5,53 @@ export default class Check extends Component {
     constructor(props) {
         super(props);
         this.handlechange = this.handlechange.bind(this);
-    this.state = {
-       
-        p: false
-    }
+        this.state = {
+            checkboxValue: this.props.goal.complete,
+            maincheck:false,
+            //checkboxValue1: this.props.flag,
+            checkboxValue1: this.props.goal.complete,
+
+            practice: 0,
+            p: false,
+            
+        }
 }
 
+componentDidMount(){
+    if(this.props.main){
+        this.setState({
+            maincheck: this.props.goal.mainGoal.complete,
+            checkboxValue1: this.props.goal.mainGoal.complete
+        })
+    }
 
-    handlechange(){
+}
+
+// async markcheckbox(goal) {
+//     console.log(this.state.checkboxValue1, goal, this.props.main)
+//     await this.setState({
+//         checkboxValue1: !this.state.checkboxValue1,
+//         maincheck: !this.state.maincheck,
+//         checkboxValue: !this.state.checkboxValue,
+//     })
+    
+//     this.props.goalStatusChange(this.state.checkboxValue1, goal, this.props.main );
+    
+    
+
+// }
+async handlechange(goal){
         // console.log(this.state)
         this.setState({
             p:!this.state.p
         })
+        await this.setState({
+            checkboxValue1: !this.state.checkboxValue1,
+            maincheck: !this.state.maincheck,
+            checkboxValue: !this.state.checkboxValue,
+        })
+        
+        this.props.completeGoal(this.state.checkboxValue1, goal, this.props.main );
     }
     
 
@@ -25,7 +60,7 @@ export default class Check extends Component {
             <View  >
                 <View>
                     <View   style={{display:"flex", alignItems:"center", }}>
-                        <Checkbox checked={this.state.p}  size={this.props.size} style={{backgroundColor: '#f2f2f2', color:'#7A9B76', borderRadius: 5}} onChange={this.handlechange }/>
+                        <Checkbox checked={this.state.p}  size={this.props.size} style={{backgroundColor: '#f2f2f2', color:'#7A9B76', borderRadius: 5}} onChange={this.handlechange.bind(this, this.props.goal) }/>
                             <View  style={{position:"absolute"}}>
                                 <View >
                                             <View style={styles.csyncbox}>                              

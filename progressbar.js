@@ -30,23 +30,19 @@ export default class Progress extends Component {
         };
     }
     async componentDidMount() {
-        if (this.props.daysPracticed) {
+        if (this.props.text==="Days Practiced ") {
             await this.setState({
-                daysPracticed: this.props.daysPracticed
+                daysPracticed: this.props.starpoints
             })
         }
         
         
-        if (this.props.totalDays) {
-            await this.setState({ progress: this.props.totalDays })
+        if (this.props.text==="Days Practiced " ) {
+            await this.setState({ progress: this.props.spGoal })
         }
-        if(this.props.day){
-            let percent = 100 / this.state.progress;
-        console.log(percent);
-        
-        let calc = percent * this.state.daysPracticed;
-
-        console.log(this.state.daysPracticed);
+        if(this.props.text==="Days Practiced "){
+            let percent = 100 / parseInt(this.state.progress);
+        let calc = percent * parseInt(this.state.daysPracticed);
         if (calc === 0) {
             this.setState({
                 style: 0,
@@ -56,23 +52,20 @@ export default class Progress extends Component {
         else {
             if(parseInt(calc) >100){
                 calc=100
-                console.log("calc", calc);
             }
-            console.log("calc", calc);
             this.setState({
                 style: calc.toString() + "%",
                 height: 40
             })
         }
-
         }
-        else if(this.props.time){
-            let percent = 100 / this.state.timeprogress;
-        console.log(percent);
-        
+        else if(this.props.text==="Time Practiced "){
+            await this.setState({
+                timeprogress:this.props.spGoal,
+                time: this.props.starpoints,
+            })
+            let percent = 100 / parseInt(this.state.timeprogress);
         let calc = percent * this.state.time;
-
-        console.log(this.state.time);
         if (calc === 0) {
             this.setState({
                 style: 0,
@@ -90,16 +83,10 @@ export default class Progress extends Component {
                 height: 40
             })
         }
-
         }
         else{
-            console.log(this.state)
             let percent = 100 / this.state.starpointsProg;
-        console.log(percent);
-        
         let calc = percent * this.state.starpoints;
-
-        console.log(this.state.starpoints);
         if (calc === 0) {
             this.setState({
                 style: 0,
@@ -109,9 +96,7 @@ export default class Progress extends Component {
         else {
             if(parseInt(calc) >100){
                 calc=100;
-                console.log("calc", calc);
             }
-            console.log("calc", calc);
             this.setState({
                 style: calc.toString() + "%",
                 height: 40
@@ -128,7 +113,7 @@ export default class Progress extends Component {
         return (
             <View >
                 <View style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-           <Text>{this.state.text}</Text> 
+           <Text>{this.props.text}</Text> 
            <Text>{this.props.starpoints}/{this.props.spGoal}</Text>
            </View>
    <View style={styles.progressBar}>

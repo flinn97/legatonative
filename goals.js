@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 // import AuthService from "./services/auth.service";
-import { Button, Text, View, Image, SafeAreaView, StyleSheet, TextInput,TouchableWithoutFeedback } from 'react-native';
+import { Button, Text, View, Image, SafeAreaView, StyleSheet, TextInput,TouchableWithoutFeedback, TouchableHighlight } from 'react-native';
 import { debug } from "react-native-reanimated";
 import Checkbox from './checkbox1.js'
+import Right from './rightarrow.png';
+import Down from './downarrow.png'
 export default class Homework extends Component {
     //state creation and binding.
     constructor(props) {
@@ -136,18 +138,34 @@ export default class Homework extends Component {
                     </View>
                 </View> */}
                 {this.state.mainGoals.map((main, index)=>
-                    <View style={{backgroundColor:"EEEEEE", width:"100%", borderWidth:  1, borderColor:  'grey' }} onPress={this.showgoal}>
+                    <View style={{backgroundColor:"EEEEEE", width:"100%",  }} onPress={this.showgoal}>
                         
                         <View style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                        <View style={{display:"flex", flexDirection:"row"}}>
-                        <Checkbox size={25}/>
-                            <Text key={index} style={{ fontSize:24, textAlign:"center", justifyContent:"space-between"}}>
+                        <View style={{display:"flex", flexDirection:"row", marginBottom:15}}>
+                        <Checkbox size={35} completeGoal={this.props.props.completeGoal} goal={main} main={true}/>
+                            <Text key={index} style={{ fontSize:35, textAlign:"center", justifyContent:"space-between"}}>
                                 {main.mainGoal.title}
                             </Text>
                             </View>
-                            {this.state.showgoals[index]?(<Button title="hide" onPress={(event) => this.showgoal(event, index)}></Button>):(<Button title="show" onPress={(event) => this.showgoal(event, index)}></Button>)}
+                            {this.state.showgoals[index]?(
+                                <TouchableWithoutFeedback stlye={{height:25}} onPress={(event) => this.showgoal(event, index)}>
+                                                                    <Image style={{width:25, height:25, resizeMode: "contain", marginRight:20}} source={Down} />
+
+                            </TouchableWithoutFeedback>
+                            
+                            ):(
+                                <TouchableWithoutFeedback stlye={{height:25}} onPress={(event) => this.showgoal(event, index)}>
+                                <Image style={{width:25, height:25, resizeMode: "contain", marginRight:20}} source={Right} />
+
+                            </TouchableWithoutFeedback>
+                            )}
                         </View>
-                        {this.state.showgoals[index]?(<View style={{marginLeft:10}}>{main.mainGoal.goals.map((goal, index)=><View style={{display:"flex", flexDirection:"row"}}><Checkbox size={15}/><Text key={index} style={{textDecorationLine: 'line-through', textDecorationStyle: 'solid'}}>{goal.title}</Text></View>)}</View>):(<View></View>)}
+                        {this.state.showgoals[index]?(<View style={{marginLeft:10}}>
+                            {main.mainGoal.goals.map((goal, index)=>
+                            <View style={{display:"flex", flexDirection:"row", marginBottom:15}}>
+                                <Checkbox size={25} completeGoal={this.props.props.completeGoal} goal={goal} main={false}/>
+                                <Text key={index} style={{
+                                      fontSize:25,}}>{goal.title}</Text></View>)}</View>):(<View></View>)}
                     </View>
                 )}
             

@@ -3,10 +3,12 @@ import Nav from "./nav.js"
 import { Text, View } from 'react-native';
 import authService from './services/auth.service.js';
 export default class App extends Component {
-
-
-    state = {
-        student: undefined
+    constructor(props) {
+        super(props);
+        this.practice = this.practice.bind(this);
+        this.completeGoal= this.completeGoal.bind(this);
+    this.state = {
+        student: undefined,
         // diaPic: false,
         // edit: false,
         // picture: "//ssl.gstatic.com/accounts/ui/avatar_2x.png",
@@ -28,8 +30,8 @@ export default class App extends Component {
         // checkboxes: "",
         // homework: "",
         // hwpractice: 0,
-        // practice: 0,
-        // daysPracticed: 0,
+        practice: 0,
+        daysPracticed: 0,
         // totalDays: 0,
         // homeworks: "",
         // currentHomework: undefined,
@@ -38,13 +40,13 @@ export default class App extends Component {
         // changetime: "",
         // minedit: "",
         // timeedit: "",
-        // timesedit: false,
-        // weeklyTimeEdit: "",
+        timesedit: false,
+        weeklyTimeEdit: "",
         // c: false,
         // t: false,
         // starpointz: false,
-        // timecheck: false,
-        // timedaycheck: false,
+        timecheck: false,
+        timedaycheck: false,
         // statsmargin: "60px",
         // timepracmargin: "40%",
         // timepracmarginr: "40%",
@@ -57,9 +59,11 @@ export default class App extends Component {
         // widthforedit: "80%",
         // sp: "0",
         // main: undefined,
+        goals: undefined
 
 
     }
+}
     // async Splashscreen() {
     //     this.setState({
     //         splashscreen: !this.state.splashscreen
@@ -81,6 +85,195 @@ export default class App extends Component {
         }
         // this.props.props.show();
     }
+    completeGoal(check, goal,main) {
+        let sp = "";
+        let pass = false;
+        let npass= false;
+        // let daystreak= parseInt(this.state.daystreak)+1;
+        let daystreak= 1;
+        // let complete = moment().subtract(10, 'days').calendar();
+        let complete = "done"
+
+        if(check){
+        if(main){
+            sp = (parseInt(this.state.student.account[0].starpoints) + (100* daystreak)).toString();
+            if (parseInt(sp) >= parseInt(this.state.student.account[0].starpointsGoal)){
+                pass= true;
+            }
+        }
+        else{
+            sp =(parseInt(this.state.student.account[0].starpoints) + (50* daystreak)).toString();
+
+            
+            if (parseInt(sp) >= parseInt(this.state.student.account[0].starpointsGoal)){
+                pass= true;
+
+            }
+        }
+        let goalcomplete;
+        let ar=[]
+        if(main){    
+            goalcomplete = {mainGoal:{
+                complete: true,
+                completed: complete,
+                title: goal.mainGoal.title,
+                description: goal.mainGoal.description,
+                goals: goal.mainGoal.goals
+
+            },
+            _id: goal._id
+        }
+        // console.log("mygoals",this.state.student.account[0])
+        for(let i =0;i< this.state.student.account[0].mainGoals.length; i++){
+            if(this.state.student.account[0].mainGoals[i]._id===goalcomplete._id){
+                ar.push(goalcomplete)
+            }
+            else{
+                ar.push(this.state.student.account[0].mainGoals[i])
+            }  
+        }
+        }
+        else{
+            goalcomplete={
+                complete: true,
+                completed: complete,
+                title: goal.title,
+                description: goal.description,
+                _id: goal._id
+            }
+            for (let i =0; i<this.state.student.account[0].mainGoals.length; i++){
+                let maingoal = this.state.student.account[0].mainGoals[i];
+                let arr = [];
+                for (let i =0; i < maingoal.mainGoal.goals.length; i++){
+                    if( maingoal.mainGoal.goals[i]._id === goal._id){
+                        arr.push(goalcomplete)
+                    }
+                    else{
+                        arr.push(maingoal.mainGoal.goals[i])
+                    }
+
+                }
+                maingoal.mainGoal.goals= arr;
+                ar.push(maingoal);
+               
+
+            }
+        }
+        // console.log("ar for checked", ar)
+        this.setState({
+            goals:ar
+        })
+        authService.newMainGoal(
+            this.state.student.account[0]._id,
+            ar
+        )
+    }
+    else{
+        let goalcomplete;
+        let ar=[]
+        if(main){
+            
+            sp = (parseInt(this.state.student.account[0].starpoints) - (100* daystreak)).toString();
+
+            
+            if (parseInt(sp) <= 0){
+                pass= true;
+                npass=true;
+
+            }
+        }
+        else{
+            sp =(parseInt(this.state.student.account[0].starpoints) - (50* daystreak)).toString();
+
+            
+            if (parseInt(sp) <= 0){
+                pass= true;
+                npass=true;
+
+            }
+        }
+        if(main){
+            goalcomplete = {mainGoal:{
+                complete: false,
+                completed: "",
+                title: goal.mainGoal.description,
+                description: goal.mainGoal.description,
+                goals: goal.mainGoal.goals
+
+            },
+            _id: goal._id
+        }
+        // console.log(goalcomplete);
+        
+        for(let i =0;i< this.state.student.account[0].mainGoals.length; i++){
+            if(this.state.student.account[0].mainGoals[i]._id===goalcomplete._id){
+                ar.push(goalcomplete)
+            }
+            else{
+                ar.push(this.state.student.account[0].mainGoals[i])
+            }
+            
+        }
+        }
+        else{
+            goalcomplete={
+                complete: false,
+                completed: "",
+                title: goal.title,
+                description: goal.description,
+                _id: goal._id
+            }
+            for (let i =0; i<this.state.student.account[0].mainGoals.length; i++){
+                let maingoal = this.state.student.account[0].mainGoals[i];
+                let arr = [];
+                for (let i =0; i < maingoal.mainGoal.goals.length; i++){
+                    if( maingoal.mainGoal.goals[i]._id === goal._id){
+                        arr.push(goalcomplete)
+                    }
+                    else{
+                        arr.push(maingoal.mainGoal.goals[i])
+                    }
+
+                }
+                maingoal.mainGoal.goals= arr;
+                ar.push(maingoal);
+               
+
+            }
+        }
+        
+        
+        
+        // console.log("arforunchecked", ar);
+        this.setState({
+            goals:ar
+        })
+         authService.newMainGoal(
+            this.state.student.account[0]._id,
+            ar
+        )
+    }
+            authService.goalStatusChange(
+                this.state.student.account[0]._id,
+                check,
+                goal,
+                main,
+                complete,
+                this.state.student.account[0].level, sp, this.state.student.account[0].starpointsGoal, pass, npass
+                
+
+            )
+        //     if(check){
+        //     if(this.state.student.account[0].starPointz){
+        //     this.starpointz();
+        //     }
+        //     else{
+        //         window.location.reload();
+        //     }
+        // }
+        //
+
+    }
     showGoal(goal, main) {
 
         this.setState({
@@ -100,33 +293,26 @@ export default class App extends Component {
     }
 
     practice(sign, sync, day) {
-
         if (sync) {
+            console.log("mystudent", this.state.student.account[0])
             let sp = "";
             let pass = false;
             let npass = false;
-            let daystreak = parseInt(this.state.realtimeusr.daystreak);
+            let daystreak = parseInt(this.state.student.account[0].daystreak);
             let x = parseInt(this.state.practice);
             let xx = parseInt(this.state.daysPracticed);
             if (sign) {
                 daystreak++;
                 x++;
                 xx++;
-                sp = ((parseInt(this.state.realtimeusr.starpoints)) + (20 * daystreak)).toString();
-
-
-
-                if (parseInt(sp) >= parseInt(this.state.realtimeusr.starpointsGoal)) {
+                sp = ((parseInt(this.state.student.account[0].starpoints)) + (20 * daystreak)).toString();
+                if (parseInt(sp) >= parseInt(this.state.student.account[0].starpointsGoal)) {
                     pass = true;
-
-
                 }
-                if (this.state.realtimeusr.edityesnoWeek) {
+                if (this.state.student.account[0].edityesnoWeek) {
                     this.setState({ timesedit: true, timecheck: true });
-
                 }
-                if (this.state.realtimeusr.timeday) {
-                    console.log(daystreak, this.state.realtimeusr.timeday, sp)
+                if (this.state.student.account[0].timeday) {
                     let nday = {
                         M: "mon",
                         T: "tues",
@@ -134,57 +320,34 @@ export default class App extends Component {
                         R: "thur",
                         F: "fri",
                         S: "sat",
-                        s: "sun",
-
-
+                        Su: "sun",
                     }
                     let theday = nday[day];
                     this.setState({ timesedit: true, timecheck: true, timedaycheck: true, timeedit: theday });
                 }
                 else {
-                    if (this.state.realtimeusr.starPoints) {
+                    if (this.state.student.account[0].starPoints) {
                         this.setState({ sp: sp });
                         this.setState({ starpointz: true, });
                     }
                     // this.props.props.show();
                 }
                 this.setState({ practice: x.toString(), daysPracticed: xx.toString(), });
-
-
             }
             else {
-                sp = ((parseInt(this.state.realtimeusr.starpoints)) - (20 * daystreak)).toString();
-
-
-
-
+                sp = ((parseInt(this.state.student.account[0].starpoints)) - (20 * daystreak)).toString();
                 if (parseInt(sp) <= 0) {
-
                     pass = true;
                     npass = true;
-
                 }
-
-
-
                 daystreak--;
                 x--;
                 xx--;
-
-
-
-
-
-
-
                 this.setState({ practice: x.toString(), daysPracticed: xx.toString(), });
-
             }
-            // console.log(this.props.props.props.currentPage._id, day, sign, this.state.practice, this.state.daysPracticed, this.state.realtimeusr.level, sp, this.state.realtimeusr.starpointsGoal, pass, daystreak, npass)
-
             
-            //going to have to make this work on phone here.
-            AuthService.syncedchecking(this.state.id, day, sign, this.state.practice, this.state.daysPracticed, this.state.realtimeusr.level, sp, this.state.realtimeusr.starpointsGoal, pass, daystreak, npass)
+            authService.syncedchecking(this.state.student.account[0]._id, day, sign, this.state.practice, this.state.daysPracticed, this.state.student.account[0].level, sp, 
+                this.state.student.account[0].starpointsGoal, pass, daystreak, npass)
         }
         else {
             let sp = "";
@@ -229,11 +392,10 @@ export default class App extends Component {
                     this.setState({ timesedit: true, timecheck: true, timedaycheck: true, timeedit: theday });
                 }
                 else {
-                    if (this.state.realtimeusr.starPoints) {
+                    if (this.state.student.starPoints) {
                         this.setState({ sp: sp })
                         this.setState({ starpointz: true, });
                     }
-                    // this.props.props.show();
                 }
                 this.setState({ practice: x.toString(), daysPracticed: xx.toString(), });
 
@@ -540,12 +702,20 @@ export default class App extends Component {
         if(!this.state.student){
             let student = await authService.login("newguy@gmail.com", "Dragon97!")
             console.log("mount", student)
-            this.setState({
-                student:student
+            let prac = student.account[0].checked;
+            let days = student.account[0].daysPracticed;
+            let totaldays = student.account[0].totalDays;
+            await this.setState({
+                student:student,
+                practice:prac? prac: 0,
+                daysPracticed: days? days: 0,
+                goals: student.account[0].mainGoals ? student.account[0].mainGoals: {}
             })
+            
     }
         this.setState({
-            update: !this.state.update
+            update: !this.state.update,
+
         })
 
     }
@@ -954,7 +1124,7 @@ export default class App extends Component {
     render() {
         return (
             
-                <Nav state={this.state} />
+                <Nav state={this.state} practice={this.practice} completeGoal={this.completeGoal}/>
             
         )
     }

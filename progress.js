@@ -24,18 +24,18 @@ export default class Homework extends Component {
         return (
             <View style={{marginTop:40}}>
                 <View style={{marginBottom:40,  alignItems:"center"}}>
-           <Circle/>
+           <Circle props={this.props}/>
            <Text >Goal Progress</Text>
            </View>
            <View>
                <View style={{marginBottom:30}}>
-           <Bar spGoal={"100"} starpoints={"50"} />
+           <Bar spGoal={"100"} starpoints={"50"} text={"Starpoints"}/>
            </View>
            <View style={{marginBottom:30}}>
-           <Bar spGoal={"100"} starpoints={"30"} />
+           <Bar spGoal={"100"} starpoints={"30"} text={"Days Practiced"}/>
            </View>
            <View style={{marginBottom:30}}>
-           <Bar spGoal={"100"} starpoints={"40"} />
+           <Bar spGoal={"100"} starpoints={"40"} text={"Time Practiced"}/>
            </View>
            </View>
             </View>

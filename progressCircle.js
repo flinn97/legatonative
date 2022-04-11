@@ -15,62 +15,62 @@ export default class Progress extends Component {
         super(props);
         this.state = {
             
-            stylel: "rotate(180deg)",
-            styler: "rotate(180deg)",
+            // stylel: "rotate(180deg)",
+            // styler: "rotate(180deg)",
             completedGoals: 0,
             incompletGoals: 0,
             totalGoals: 0,
-            percent: "",
+            percent: 0,
+            goals: this.props.props.props.props.props.state.goals? this.props.props.props.props.props.state.goals: {}
 
         };
     }
-    // componentDidMount() {
-    //     console.log(this.props.goals)
-    //     var totalgoals= this.props.goals.length
-    //     for (let i=0; i<this.props.goals.length; i++){
-    //         console.log(this.props.goals[i].mainGoal);
-    //         let goalz= this.props.goals[i]
-    //         for(let i=0; i<goalz.mainGoal.goals.length; i++){
+    componentDidMount() {
+        console.log("circle", this.state.goals)
+        var totalgoals= this.state.goals.length
+        for (let i=0; i<this.state.goals.length; i++){
+            let goalz= this.state.goals[i]
+            for(let i=0; i<goalz.mainGoal.goals.length; i++){
                 
-    //             totalgoals++
-    //         }
-    //     }
-    //     if(this.props.main){
-    //         this.setState({
-    //             totalGoals: totalgoals
-    //         })
-    //     }
-    //     else{
-    //         this.setState({
-    //             totalGoals: totalgoals
-    //         })
-    //     }
+                totalgoals++
+            }
+        }
+
+        if(this.props.main){
+            this.setState({
+                totalGoals: totalgoals
+            })
+        }
+        else{
+            this.setState({
+                totalGoals: totalgoals
+            })
+        }
    
-    //     this.progressCalc();
+        this.progressCalc();
 
        
         
             
         
-    // }
+    }
     async progressCalc() {
 
         let completedGoals = 0;
         let goals = 0;
 
-        for (let i = 0; i < this.props.goals.length; i++) {
+        for (let i = 0; i < this.state.goals.length; i++) {
 
-            if (this.props.goals[i].mainGoal.complete) {
+            if (this.state.goals[i].mainGoal.complete) {
                 completedGoals += 1;
             }
             else {
                 goals += 1;
             }
-            let goalz= this.props.goals[i]
+            let goalz= this.state.goals[i]
             for(let i=0; i<goalz.mainGoal.goals.length; i++){
                 if(goalz.mainGoal.goals[i]){
                 if(goalz.mainGoal.goals[i].complete){
-                    console.log(goalz.mainGoal.goals[i].complete);
                     completedGoals += 1;
                 }
                 else {
@@ -93,21 +93,21 @@ export default class Progress extends Component {
         console.log(this.state.totalGoals);
         let calc = 100 / this.state.totalGoals;
         let percentage = calc * this.state.completedGoals;
-        let calculate = 360 / this.state.totalGoals;
-        let calculated = calculate * this.state.completedGoals;
-        let overcalc =0;
+        // let calculate = 360 / this.state.totalGoals;
+        // let calculated = calculate * this.state.completedGoals;
+        // let overcalc =0;
         
 
-        if (calculated > 180) {
-            overcalc = calculated - 180;
-            calculated = 180;
+        // if (calculated > 180) {
+        //     overcalc = calculated - 180;
+        //     calculated = 180;
 
-        } 
-        console.log(calculated);
+        // } 
+        // console.log(calculated);
 
-        console.log(overcalc);
-        const stylel = "rotate(" + calculated.toString() + "deg)";
-        const styler = "rotate(" + overcalc.toString() + "deg)";
+        // console.log(overcalc);
+        // const stylel = "rotate(" + calculated.toString() + "deg)";
+        // const styler = "rotate(" + overcalc.toString() + "deg)";
 
         
         let percent = percentage.toString();
@@ -123,22 +123,22 @@ export default class Progress extends Component {
         }
 
         this.setState({
-            percent: perc,
-            stylel: stylel,
-            styler: styler,
+            percent: parseInt(perc),
+            // stylel: stylel,
+            // styler: styler,
 
         });
 
-        if(!this.props.main){
-            if(this.props.goals.length===0){
-                this.setState({
-                    percent: "0",
-                    stylel: "rotate(" + "0" + "deg)",
-                    styler: "rotate(" + "0" + "deg)"
+        // if(!this.props.main){
+        //     if(this.props.goals.length===0){
+        //         this.setState({
+        //             percent: "0",
+        //             stylel: "rotate(" + "0" + "deg)",
+        //             styler: "rotate(" + "0" + "deg)"
 
-                })
-            }
-        }
+        //         })
+        //     }
+        // }
     
     }
     /*
@@ -149,7 +149,7 @@ export default class Progress extends Component {
             
             <View >
                     <CircularProgress
-  value={100}
+  value={this.state.percent}
   valueSuffix={'%'}
   radius={115}
   activeStrokeWidth={24}
