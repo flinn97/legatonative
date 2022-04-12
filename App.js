@@ -7,6 +7,7 @@ export default class App extends Component {
         super(props);
         this.practice = this.practice.bind(this);
         this.completeGoal= this.completeGoal.bind(this);
+        this.getusrinrealtime=this.getusrinrealtime.bind(this);
     this.state = {
         student: undefined,
         // diaPic: false,
@@ -76,7 +77,19 @@ export default class App extends Component {
 
 
     // }
-
+    async getusrinrealtime(){
+        let student = await authService.login("newguy@gmail.com", "Dragon97!")
+            console.log("mount", student)
+            let prac = student.account[0].checked;
+            let days = student.account[0].daysPracticed;
+            let totaldays = student.account[0].totalDays;
+            await this.setState({
+                student:student,
+                practice:prac? prac: 0,
+                daysPracticed: days? days: 0,
+                goals: student.account[0].mainGoals ? student.account[0].mainGoals: {}
+            })
+    }
     starpointz() {
         if (this.state.realtimeusr.starPoints) {
             this.setState({
@@ -1124,7 +1137,7 @@ export default class App extends Component {
     render() {
         return (
             
-                <Nav state={this.state} practice={this.practice} completeGoal={this.completeGoal}/>
+                <Nav state={this.state} practice={this.practice} completeGoal={this.completeGoal} getusrinrealtime={this.getusrinrealtime}/>
             
         )
     }

@@ -83,7 +83,7 @@ function MyTabs(props) {
         }} 
         />
       <Tab.Screen name="Goals" 
-      children={()=><SettingsScreen props={props} completeGoal={props.completeGoal}/>}
+      children={()=><SettingsScreen props={props} completeGoal={props.completeGoal} getusrinrealtime={props.getusrinrealtime}/>}
       // component={SettingsScreen} 
       options={{
         headerStyle: {
@@ -153,7 +153,7 @@ export default function Nav(props) {
     <Text style={{color:"white"}}>P</Text></View></View> */}
          
 
-      <MyTabs props={props} practice={props.practice} completeGoal={props.completeGoal}/>
+      <MyTabs props={props} practice={props.practice} completeGoal={props.completeGoal} getusrinrealtime={props.getusrinrealtime}/>
     </NavigationContainer>
   );
 }

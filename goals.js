@@ -61,10 +61,10 @@ export default class Homework extends Component {
             showgoals:!this.state.showgoals
         })
     }
-    // componentDidMount(){
-    //     console.log("we are in goals",)
-        
-    // }
+    componentDidMount(){
+        // this.props.props.getusrinrealtime();
+        // console.log(this.props)
+    }
     /*
     handleChange: function (e) {
     // 1. Make a shallow copy of the items
@@ -138,12 +138,12 @@ export default class Homework extends Component {
                     </View>
                 </View> */}
                 {this.state.mainGoals.map((main, index)=>
-                    <View style={{backgroundColor:"EEEEEE", width:"100%",  }} onPress={this.showgoal}>
+                    <View style={{backgroundColor:"EEEEEE", width:"100%", marginTop:10, marginLeft:10}} onPress={this.showgoal}>
                         
-                        <View style={{display:"flex", flexDirection:"row", justifyContent:"space-between"}}>
-                        <View style={{display:"flex", flexDirection:"row", marginBottom:15}}>
+                        <View style={{display:"flex", flexDirection:"row", justifyContent:"space-between",  borderBottomWidth:1, borderBottomColor:"grey",}}>
+                        <View style={{display:"flex", flexDirection:"row", marginBottom:15, }}>
                         <Checkbox size={35} completeGoal={this.props.props.completeGoal} goal={main} main={true}/>
-                            <Text key={index} style={{ fontSize:35, textAlign:"center", justifyContent:"space-between"}}>
+                            <Text key={index} style={{ fontSize:35, textAlign:"center", justifyContent:"space-between", marginLeft:10}}>
                                 {main.mainGoal.title}
                             </Text>
                             </View>
@@ -162,9 +162,9 @@ export default class Homework extends Component {
                         </View>
                         {this.state.showgoals[index]?(<View style={{marginLeft:10}}>
                             {main.mainGoal.goals.map((goal, index)=>
-                            <View style={{display:"flex", flexDirection:"row", marginBottom:15}}>
+                            <View style={{display:"flex", flexDirection:"row", marginBottom:15,  borderBottomWidth:1, borderBottomColor:"grey"}}>
                                 <Checkbox size={25} completeGoal={this.props.props.completeGoal} goal={goal} main={false}/>
-                                <Text key={index} style={{
+                                <Text key={index} style={{  marginLeft:10,
                                       fontSize:25,}}>{goal.title}</Text></View>)}</View>):(<View></View>)}
                     </View>
                 )}

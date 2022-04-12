@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { Button, Text, View, Image, SafeAreaView, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
 import Checkboxnum2 from "./practice"
+import Leaf from "./leaf.png"
 
 export default class Homework extends Component {
 
@@ -226,7 +227,10 @@ export default class Homework extends Component {
                 <View style={{ flex: 1, alignItems: 'center' }}>
                 <Text style={{ fontSize:25 }}>Homework Assignments</Text>
                 <View style={{ marginTop:50 }}>
-                 {this.state.homeworks.map((homework, index)=><View key={index}><Text style={{fontSize:18, marginTop:5}} key={index}>{homework.title}</Text></View>)}
+
+                 {this.state.homeworks.map((homework, index)=><View style={{display:"flex", flexDirection:"row"}} key={index}>
+                 <Image style={{width:25, height:25, resizeMode: "contain", marginRight:20}} source={Leaf} />
+                     <Text style={{fontSize:18, marginTop:5}} key={index}>{homework.title}</Text></View>)}
                  </View>
                  </View>
                  <View  style={{marginBottom:70}}>
